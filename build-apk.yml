@@ -1,0 +1,43 @@
+name: Build Debug APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download project
+        run: |
+          curl -L "https://muse.ai/files/1348711908323922/2929611970754544/qbwfrcvkntxdgp00mxkypyr4/project.tar.gz" -o project.tar.gz
+          mkdir -p app && tar xzf project.tar.gz -C app
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.8'
+          channel: 'stable'
+          cache: true
+
+      - name: Pub get
+        run: flutter pub get
+        working-directory: app
+
+      - name: Build debug APK
+        run: flutter build apk --debug
+        working-directory: app
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ransom-calendar-debug
+          path: app/build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 14
