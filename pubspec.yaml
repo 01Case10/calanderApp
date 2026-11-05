@@ -1,0 +1,54 @@
+name: ransom_calendar
+description: "Ransom-note calendar app — Phase 0 scaffold. Calendar, Week, Sync screens, clumsy scissors-cut paper, no data layer yet."
+publish_to: "none"
+version: 0.0.1+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  drift: ^2.35.0
+  drift_flutter: ^0.3.0
+  flutter_riverpod: ^3.4.0
+  uuid: ^4.6.0
+  intl: ^0.20.0
+  # Phase 1b — QR sync (assistant defaults, see technical plan QR amendment)
+  qr_flutter: ^4.1.0
+  mobile_scanner: ^7.4.0
+  flutter_secure_storage: ^11.2.0
+  cryptography: ^2.9.0
+  http: ^1.6.0
+  image_picker: ^1.2.0
+  crypto: ^3.0.0
+  archive: ^4.5.0
+  # Notifications (assistant default: local only, no server)
+  flutter_local_notifications: ^19.4.0
+  timezone: ^0.10.1
+  flutter_native_timezone: ^2.0.0
+  # Home screen widget (Android AppWidget)
+  home_widget: ^0.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  drift_dev: ^2.35.0
+  build_runner: ^2.17.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/city.png
+    - assets/images/knife.png
+  fonts:
+    - family: Anton
+      fonts:
+        - asset: assets/fonts/Anton-Regular.ttf
+    - family: DMSerif
+      fonts:
+        - asset: assets/fonts/DMSerifDisplay-Regular.ttf
+    - family: CourierPrime
+      fonts:
+        - asset: assets/fonts/CourierPrime-Bold.ttf
