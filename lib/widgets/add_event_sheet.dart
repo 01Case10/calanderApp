@@ -8,6 +8,7 @@ import '../data/event.dart';
 import '../data/providers.dart';
 import '../location/location_service.dart';
 import '../notifications/notification_service.dart';
+import 'home_widget_service.dart';
 import '../sync/sync_providers.dart';
 import '../theme/app_theme.dart';
 import '../theme/clumsy_paper.dart';
@@ -194,6 +195,8 @@ class _AddEventSheetState extends ConsumerState<AddEventSheet> {
       if (saved != null) {
         await NotificationService.scheduleFor(saved);
       }
+      // Refresh the home widget (today's agenda may have changed).
+      await HomeWidgetService.refreshFromDb(db);
       if (mounted) Navigator.of(context).pop(true);
     } finally {
       if (mounted) setState(() => _saving = false);
@@ -218,6 +221,8 @@ class _AddEventSheetState extends ConsumerState<AddEventSheet> {
         );
     // Drop the reminder — a deleted event must not notify.
     await NotificationService.cancelFor(existing.id);
+    // Refresh the home widget.
+    await HomeWidgetService.refreshFromDb(ref.read(databaseProvider));
     if (mounted) Navigator.of(context).pop(true);
   }
 
